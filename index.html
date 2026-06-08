@@ -23,7 +23,7 @@
   </style>
 </head>
 <body> 
-  <div id ="map" style="height:100vh; width: 100%;"></div>
+  <div id="map" style="height:100vh; width: 100%;"></div>
   <div id="result">Click two points on the map</div>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script> 
@@ -39,7 +39,7 @@
         document.getElementById('result').innerHTML = 
         'Click two points on the map';
       }
-      selectedPoints.push(e.latlng); }
+      selectedPoints.push(e.latlng); 
 
       L.circleMarker(e.latlng, {
         radius: 8,

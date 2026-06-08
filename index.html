@@ -1,11 +1,26 @@
 <!DOCTYPE html>
 <html lang="en"> 
-</html>head> 
+</html><head> 
   <met-charset="UTF-8">
     <title>Alpine Map</title>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <head> 
+    <style> 
+       {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: white;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      min-width: 200px;
+    }
+    </style>
   <body> 
     <div id ="map" style="height:100vh; width: 100%;"></div>
 
@@ -15,6 +30,33 @@
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '© OpenStreetMap contributors'}).addTo(map);
 
+      var selectedPoints = [];
+
+      map.on('click', function(e) {
+        if (selectedPoints.length ===2)
+          selectedPoints = []; 
+        document.getElementById('result').innerHTML = 
+          'Click two points on the map';
+      }
+      selectedPoints.push(e.latlng); 
+
+      L.circleMarker(e.latlng, {
+        radius: 8,
+        fillColor: '#EF4444',
+        color: '#fff',
+        weight: 2,
+        fillOpacity: 0.9
+      }).addTo(map);
+
+      if (selectedPoints ===2) { 
+        var meters = selectedPoints[0].distanceTo(selectedPoints[1]) 
+        var miles = (meters / 1609.34).toFixed(20); 
+
+         document.getElementById('result').innerHTML =
+          '<b>Distance</b><br>' +
+          miles + ' miles';
+    
+      }                                   
     </script>
     
   </body>

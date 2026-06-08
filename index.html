@@ -1,46 +1,42 @@
 <!DOCTYPE html>
-<html lang="en"> 
-<head> 
+<html lang="en">
+<head>
   <meta charset="UTF-8">
-  <title>Alpine Map</title>
-
+  <title>Alpine Care Map</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-  
-    <style> 
-      #result{
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        z-index: 1000;
-        background: white;
-        padding: 16px;
-        border-radius: 8px;
-        border: 1px solid #ddd;
-        font-family: Arial, sans-serif;
-        font-size: 14px;
-        min-width: 200px;
+  <style>
+    #result {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: white;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      min-width: 200px;
     }
   </style>
 </head>
-<body> 
-  <div id="map" style="height:100vh; width: 100%;"></div>
+<body>
+  <div id="map" style="height:100vh; width:100%;"></div>
   <div id="result">Click two points on the map</div>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script> 
+  <script>
     var map = L.map('map').setView([40.7614, -73.9776], 13);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '© OpenStreetMap contributors'}).addTo(map);
-
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
     var selectedPoints = [];
-
     map.on('click', function(e) {
-      if (selectedPoints.length ===2) {
-        selectedPoints = []; 
-        document.getElementById('result').innerHTML = 
-        'Click two points on the map';
+      if (selectedPoints.length === 2) {
+        selectedPoints = [];
+        document.getElementById('result').innerHTML =
+          'Click two points on the map';
       }
-      selectedPoints.push(e.latlng); 
-
+      selectedPoints.push(e.latlng);
       L.circleMarker(e.latlng, {
         radius: 8,
         fillColor: '#EF4444',
@@ -48,19 +44,13 @@
         weight: 2,
         fillOpacity: 0.9
       }).addTo(map);
-
-      if (selectedPoints.length ===2) { 
+      if (selectedPoints.length === 2) {
         var meters = selectedPoints[0].distanceTo(selectedPoints[1]);
-        var miles = (meters / 1609.34).toFixed(2); 
-
-         document.getElementById('result').innerHTML =
-          '<b>Distance</b><br>' +
-          miles + ' miles';
-    
-      }  
-     });
-    </script>
-    
-  </body>
+        var miles = (meters / 1609.34).toFixed(2);
+        document.getElementById('result').innerHTML =
+          '<b>Distance</b><br>' + miles + ' miles';
+      }
+    });
+  </script>
+</body>
 </html>
-      
